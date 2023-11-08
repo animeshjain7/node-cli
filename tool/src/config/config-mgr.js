@@ -12,8 +12,7 @@ const ajv =  new Ajv({jsonPointers:true});
 const confiLoader = cosmiconfigSync('tool');
 const logger = createLogger('config:mgr');
 export  function getConfig() {
-    
-    const result = confiLoader.search(process.cwd());
+  
     // console.log(result); 
     // const require = createRequire(import.meta.url);
     // const pkgPath = findUpSync('package.json', { cwd: process.cwd() });
@@ -26,9 +25,11 @@ export  function getConfig() {
     //     console.log(chalk.yellow('Could not find configuration, using default'));
     //     return { port: 9999 };
     // }
+    
+    const result = confiLoader.search(process.cwd());
     if (!result) {
-        logger.warnig('Could not find configuration, using default');
-        return { port: 1234 };
+        logger.warning('Could not find configuration, using default');
+        return { port: 6666 };
       } else {
         const isValid = ajv.validate(schema, result.config);
         if (!isValid) {
